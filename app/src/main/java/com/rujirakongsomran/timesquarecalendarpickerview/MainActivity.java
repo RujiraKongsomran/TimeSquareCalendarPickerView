@@ -1,13 +1,14 @@
 package com.rujirakongsomran.timesquarecalendarpickerview;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-import android.widget.Toast;
-
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperActivityToast;
+import com.github.johnpersano.supertoasts.library.utils.PaletteUtils;
 import com.squareup.timessquare.CalendarPickerView;
 
-import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -39,7 +40,13 @@ public class MainActivity extends AppCompatActivity {
                         + " " + (calendarSelected.get(Calendar.MONTH) + 1)
                         + " " + calendarSelected.get(Calendar.YEAR);
 
-                Toast.makeText(MainActivity.this, selectedDate, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, selectedDate, Toast.LENGTH_SHORT).show();
+                SuperActivityToast.create(MainActivity.this, new Style())
+                        .setText(selectedDate)
+                        .setDuration(Style.DURATION_VERY_SHORT)
+                        .setFrame(Style.FRAME_KITKAT)
+                        .setColor(PaletteUtils.getSolidColor(PaletteUtils.MATERIAL_BLUE))
+                        .setAnimations(Style.ANIMATIONS_POP).show();
 
             }
 
