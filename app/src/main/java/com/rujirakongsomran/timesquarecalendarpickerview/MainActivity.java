@@ -3,6 +3,13 @@ package com.rujirakongsomran.timesquarecalendarpickerview;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.Toast;
+
+import com.squareup.timessquare.CalendarPickerView;
+
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -10,5 +17,37 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Date today = new Date();
+        Calendar nextYear = Calendar.getInstance();
+        nextYear.add(Calendar.YEAR, 1);
+
+        CalendarPickerView datePicker = findViewById(R.id.calendarPickerView);
+        datePicker.init(today, nextYear.getTime())
+                .inMode(CalendarPickerView.SelectionMode.RANGE)
+                .withSelectedDate(today);
+
+        datePicker.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(Date date) {
+                //String selectedDate = DateFormat.getDateInstance(DateFormat.FULL).format(date);
+
+                Calendar calendarSelected = Calendar.getInstance();
+                calendarSelected.setTime(date);
+
+                String selectedDate = "" + calendarSelected.get(Calendar.DAY_OF_MONTH)
+                        + " " + (calendarSelected.get(Calendar.MONTH) + 1)
+                        + " " + calendarSelected.get(Calendar.YEAR);
+
+                Toast.makeText(MainActivity.this, selectedDate, Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onDateUnselected(Date date) {
+
+            }
+        });
+
     }
 }
